@@ -830,7 +830,7 @@ hid_device * HID_API_EXPORT hid_open_path(const char *path)
 	}
 
 	/* Open the IOHIDDevice */
-	ret = IOHIDDeviceOpen(dev->device_handle, kIOHIDOptionsTypeSeizeDevice);
+	ret = IOHIDDeviceOpen(dev->device_handle, kIOHIDOptionsTypeNone); //kIOHIDOptionsTypeSeizeDevice);
 	if (ret == kIOReturnSuccess) {
 		char str[32];
 
@@ -1147,7 +1147,7 @@ void HID_API_EXPORT hid_close(hid_device *dev)
 	   Not leaking a resource in all tested environments.
 	*/
 	if (is_macos_10_10_or_greater || !dev->disconnected) {
-		IOHIDDeviceClose(dev->device_handle, kIOHIDOptionsTypeSeizeDevice);
+		IOHIDDeviceClose(dev->device_handle, kIOHIDOptionsTypeNone);//kIOHIDOptionsTypeSeizeDevice);
 	}
 
 	/* Clear out the queue of received reports. */
